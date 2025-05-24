@@ -59,7 +59,7 @@ class _PatientsPageState extends State<PatientsPage>{
             context: context,
             builder: (BuildContext context) {
                 return SimpleDialog(
-                    title: const Text("Do you want to logout?"),
+                    title: const Text("Do you want to logout?",style:TextStyle(color:Colors.indigo)),
                     children: <Widget>[
                         // If the button "Yes" is pressed, the app will remove the dialog
                         // and return to the login page
@@ -72,7 +72,7 @@ class _PatientsPageState extends State<PatientsPage>{
                         ),
                         // If the button "No" is pressed, the app will just remove the dialog
                         SimpleDialogOption(
-                            child: const Text("No",style: TextStyle(color: Colors.blue)),
+                            child: const Text("No",style: TextStyle(color: Colors.indigo)),
                             onPressed: () {
                                 Navigator.of(context).pop();
                             })]
@@ -87,8 +87,8 @@ class _PatientsPageState extends State<PatientsPage>{
             // The app bar is similar to that of the login page
             // But a leading icon button is added to logout
             appBar: AppBar(
-                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                title: const Text('Patients Monitoring System'),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                title: const Text('Patients Monitoring System',style:TextStyle(color:Colors.white)),
                 automaticallyImplyLeading: false,
                 // When the icon button is pressed, the dialog will appear to ask for confirmation
                 leading: IconButton(icon: const Icon(Icons.logout),
@@ -100,20 +100,21 @@ class _PatientsPageState extends State<PatientsPage>{
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                        Text('Welcome, Dr. ${widget.doctor}'),
+                        Text('Welcome, Dr. ${widget.doctor}',style:TextStyle(color:Colors.white)),
                         // To build a list of cards showing the patients' information
                         Expanded(
                             child: ListView.builder(
                                 itemCount: patients.length,
                                 itemBuilder: (context, index){
-                                    return Card(child: Column(children: <Widget>[
+                                    return Card(color:Colors.indigo,
+                                    child: Column(children: <Widget>[
                                         ListTile(
-                                        title: Text("Name:${patients[index]["name"]}"),
-                                        subtitle: Text("Age: ${patients[index]["age"]}\nCondition: ${patients[index]["condition"]}"),
+                                        title: Text("Name:${patients[index]["name"]}",style:TextStyle(color:Colors.white)),
+                                        subtitle: Text("Age: ${patients[index]["age"]}\nCondition: ${patients[index]["condition"]}",style:TextStyle(color:Colors.white)),
                                     ),
                                     // A button on each card for viewing the details of the patient
                                     // When the button is pressed, it will navigate to the PatientPage
-                                    TextButton(child: Text("View Details"),
+                                    TextButton(child: Text("View Details",style:TextStyle(color:Colors.white)),
                                     onPressed:(){
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => PatientPage(patient: "${patients[index]["name"]}")));
 

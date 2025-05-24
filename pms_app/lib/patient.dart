@@ -47,8 +47,8 @@ class _PatientPageState extends State<PatientPage>{
             // Similar to the app bar in login page and patients page,
             // but the leading icon is an arrow back icon
             appBar: AppBar(
-                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                title: const Text('Patients Monitoring System'),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                title: const Text('Patients Monitoring System',style:TextStyle(color:Colors.white)),
                 automaticallyImplyLeading: false,
                 // When the icon is pressed, it will return to the patients page
                 leading: IconButton(icon: const Icon(Icons.arrow_back),
@@ -64,50 +64,58 @@ class _PatientPageState extends State<PatientPage>{
                     // The top widget is a text showing the patient's name
                     Container(
                     padding: const EdgeInsets.all(8),
-                    child: Text("Patient: ${patientDetails["name"]}", style: const TextStyle(fontSize: 30))),
+                    child: Text("Patient: ${patientDetails["name"]}", style: const TextStyle(fontSize: 30,color:Colors.indigo))),
 
                     // The following widgets are a list of cards,
                     // each card for each attribute of the patient
                     Container(
                         padding: const EdgeInsets.all(8),
-                        child: Card(child: ListTile(title: Text("Sex"),
-                        subtitle: Text("${patientDetails["sex"]}"))
+                        child: Card(color:Colors.indigo,
+                            child: ListTile(title: Text("Sex",style:TextStyle(color:Colors.white)),
+                        subtitle: Text("${patientDetails["sex"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
-                        child: Card(child: ListTile(title: Text("Age"),
-                        subtitle: Text("${patientDetails["age"]}"))
+                        child: Card(color:Colors.pink,
+                            child: ListTile(title: Text("Age",style:TextStyle(color:Colors.white)),
+                        subtitle: Text("${patientDetails["age"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
-                        child: Card(child: ListTile(title: Text("Blood Pressure"),
-                        subtitle: Text("${patientDetails["blood_pressure"]}"))
+                        child: Card(color:Colors.indigo,
+                        child: ListTile(title: Text("Blood Pressure",style:TextStyle(color:Colors.white)),
+                        subtitle: Text("${patientDetails["blood_pressure"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
-                        child: Card(child: ListTile(title: Text("Blood Type"),
-                        subtitle: Text("${patientDetails["blood_type"]}"))
+                        child: Card(color:Colors.pink,
+                        child: ListTile(title: Text("Blood Type",style:TextStyle(color:Colors.white)),
+                        subtitle: Text("${patientDetails["blood_type"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
-                        child: Card(child: ListTile(title: Text("ID"),
-                        subtitle: Text("${patientDetails["id"]}"))
+                        child: Card(color:Colors.indigo,
+                        child: ListTile(title: Text("ID",style:TextStyle(color:Colors.white)),
+                        subtitle: Text("${patientDetails["id"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
-                        child: Card(child: ListTile(title: Text("Condition"),
-                        subtitle: Text("${patientDetails["condition"]}"))
+                        child: Card(color:Colors.pink,
+                        child: ListTile(title: Text("Condition",style:TextStyle(color:Colors.white)),
+                        subtitle: Text("${patientDetails["condition"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
-                        child: Card(child: ListTile(title: Text("Pulse"),
-                        subtitle: Text("${patientDetails["heartbeat_rate"]}"))
+                        child: Card(color:Colors.indigo,
+                        child: ListTile(title: Text("Pulse",style:TextStyle(color:Colors.white)),
+                        subtitle: Text("${patientDetails["heartbeat_rate"]}",style:TextStyle(color:Colors.white)))
                         )),
                     
                     // The function to show the records of the patient is not implemented yet
                     Container(
                         padding: const EdgeInsets.all(8),
-                        child: Card(child: ListTile(title: Text("Records"))
+                        child: Card(color:Colors.pink,
+                        child: ListTile(title: Text("Records",style:TextStyle(color:Colors.white)))
                         ))
                     ])));
 }}

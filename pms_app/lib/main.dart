@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       // This is the theme of your application.
       theme: ThemeData(
         // Set the color of the app bar to purple
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
       ),
       // Set the home page of the app
       home: const MyHomePage(title: 'Patients Monitoring System'),
@@ -63,10 +63,10 @@ String error_message="";
       // Set the app bar of the page
       appBar: AppBar(
         // Set the background color of the app bar to the color defined in the colorScheme
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         // Use the title passed to the widget to set the title of the app bar
         // The variable widget refers to its associated MyHomePage widget
-        title: Text(widget.title),
+        title: Text(widget.title, style:TextStyle(color:Colors.white)),
       ),
       // Set the body of the page
       body: Center(
@@ -88,7 +88,7 @@ String error_message="";
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Please login',style: TextStyle(fontSize: 30),),
+            const Text('Please login',style: TextStyle(fontSize: 30, color:Colors.indigo)),
 
             // Text Boxes for entering username and password
             TextFormField(decoration: const InputDecoration(
@@ -154,7 +154,8 @@ String error_message="";
                 }
             },
             // Set the text shown on the button
-              child: const Text('Login',style: TextStyle(fontSize: 20))
+              child: const Text('Login',style: TextStyle(fontSize: 20,color:Colors.white)),
+              style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.pink))
             ),
             // The widget for showing the error message
             Text("${error_message}",style: TextStyle(fontSize: 25,color: Colors.red))
