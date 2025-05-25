@@ -64,50 +64,52 @@ class _PatientPageState extends State<PatientPage>{
                     // The top widget is a text showing the patient's name
                     Container(
                     padding: const EdgeInsets.all(8),
-                    child: Text("Patient: ${patientDetails["name"]}", style: const TextStyle(fontSize: 30,color:Colors.indigo))),
+                    child: Text("Patient: ${patientDetails["name"]}", style: const TextStyle(fontSize: 30,
+                    color:Colors.indigo,
+                    fontWeight:FontWeight.bold))),
 
                     // The following widgets are a list of cards,
                     // each card for each attribute of the patient
                     Container(
                         padding: const EdgeInsets.all(8),
                         child: Card(color:Colors.indigo,
-                            child: ListTile(title: Text("Sex",style:TextStyle(color:Colors.white)),
+                            child: ListTile(title: Text("Sex",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),
                         subtitle: Text("${patientDetails["sex"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
                         child: Card(color:Colors.pink,
-                            child: ListTile(title: Text("Age",style:TextStyle(color:Colors.white)),
+                            child: ListTile(title: Text("Age",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),
                         subtitle: Text("${patientDetails["age"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
                         child: Card(color:Colors.indigo,
-                        child: ListTile(title: Text("Blood Pressure",style:TextStyle(color:Colors.white)),
+                        child: ListTile(title: Text("Blood Pressure",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),
                         subtitle: Text("${patientDetails["blood_pressure"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
                         child: Card(color:Colors.pink,
-                        child: ListTile(title: Text("Blood Type",style:TextStyle(color:Colors.white)),
+                        child: ListTile(title: Text("Blood Type",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),
                         subtitle: Text("${patientDetails["blood_type"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
                         child: Card(color:Colors.indigo,
-                        child: ListTile(title: Text("ID",style:TextStyle(color:Colors.white)),
+                        child: ListTile(title: Text("ID",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),
                         subtitle: Text("${patientDetails["id"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
                         child: Card(color:Colors.pink,
-                        child: ListTile(title: Text("Condition",style:TextStyle(color:Colors.white)),
+                        child: ListTile(title: Text("Condition",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),
                         subtitle: Text("${patientDetails["condition"]}",style:TextStyle(color:Colors.white)))
                         )),
                     Container(
                         padding: const EdgeInsets.all(8),
                         child: Card(color:Colors.indigo,
-                        child: ListTile(title: Text("Pulse",style:TextStyle(color:Colors.white)),
+                        child: ListTile(title: Text("Pulse",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),
                         subtitle: Text("${patientDetails["heartbeat_rate"]}",style:TextStyle(color:Colors.white)))
                         )),
                     
@@ -115,7 +117,7 @@ class _PatientPageState extends State<PatientPage>{
                     Container(
                         padding: const EdgeInsets.all(8),
                         child: Card(color:Colors.pink,
-                        child: ListTile(title: Text("Records",style:TextStyle(color:Colors.white)))
+                        child: ListTile(title: Text("Records",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)))
                         ))
                     ])));
 }}

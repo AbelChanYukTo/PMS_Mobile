@@ -63,19 +63,23 @@ class _PatientsPageState extends State<PatientsPage>{
                     children: <Widget>[
                         // If the button "Yes" is pressed, the app will remove the dialog
                         // and return to the login page
-                        SimpleDialogOption(
-                            child: const Text("Yes",style: TextStyle(color: Colors.red)),
+                        SimpleDialogOption(child:ElevatedButton(
+                            style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.red)),
+                            child: const Text("Yes",style: TextStyle(color: Colors.white)),
                             onPressed: () {
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
-                            }
+                            })
+                            
                         ),
                         // If the button "No" is pressed, the app will just remove the dialog
-                        SimpleDialogOption(
-                            child: const Text("No",style: TextStyle(color: Colors.indigo)),
-                            onPressed: () {
+                        SimpleDialogOption(child:ElevatedButton(
+                        child: const Text("No",style: TextStyle(color: Colors.white)),
+                        style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.indigo)),
+                        onPressed: () {
                                 Navigator.of(context).pop();
-                            })]
+                            })
+                            )]
                 );}
         );
     }
@@ -109,7 +113,7 @@ class _PatientsPageState extends State<PatientsPage>{
                                     return Card(color:Colors.indigo,
                                     child: Column(children: <Widget>[
                                         ListTile(
-                                        title: Text("Name:${patients[index]["name"]}",style:TextStyle(color:Colors.white)),
+                                        title: Text("Name:${patients[index]["name"]}",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),
                                         subtitle: Text("Age: ${patients[index]["age"]}\nCondition: ${patients[index]["condition"]}",style:TextStyle(color:Colors.white)),
                                     ),
                                     // A button on each card for viewing the details of the patient
