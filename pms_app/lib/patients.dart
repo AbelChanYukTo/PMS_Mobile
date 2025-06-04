@@ -33,7 +33,7 @@ class _PatientsPageState extends State<PatientsPage>{
     // Defining a method to fetch the patients' and doctor's data from the server
     void getPatientsData() async{
         // Change the <ip_address> to your server's IP address
-        // e.g. 192.168.144.240
+        // e.g. 192.168.38.240
         var response=await http.get(Uri.parse("http://<ip_address>:3001/patients/${widget.doctor}"),
         headers: {"Content-Type": "application/json"});
         if(response.statusCode==200){
@@ -83,7 +83,28 @@ class _PatientsPageState extends State<PatientsPage>{
                 );}
         );
     }
-
+    // Method to build a dialog for showing the doctor's information
+    Future<void> showDoctorInfo(BuildContext context) async{
+        return showDialog<void>(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: const Text("Doctor's Information",style:TextStyle(color:Colors.indigo)),
+                    content: Text("Name: ${doctorData["name"]}\nDepartment: ${doctorData["dept"]}\nID: ${doctorData["id"]}",
+                    style:TextStyle(color:Colors.indigo)),
+                    actions: <Widget>[
+                        // If the button "OK" is pressed, the dialog will be removed
+                        ElevatedButton(
+                            child: const Text("OK",style: TextStyle(color: Colors.white)),
+                            style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.indigo)),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            })
+                    ],
+                );
+            }
+        );
+    }
     // To define the UI layout of this page
     // This method will be rerun once the states are changed
     Widget build(BuildContext context){
@@ -96,7 +117,9 @@ class _PatientsPageState extends State<PatientsPage>{
                 automaticallyImplyLeading: false,
                 // When the icon button is pressed, the dialog will appear to ask for confirmation
                 leading: IconButton(icon: const Icon(Icons.logout),
-                onPressed: (){logout(context);})
+                onPressed: (){logout(context);}),
+                actions: <Widget>[IconButton(icon: Icon(Icons.account_circle,color:Colors.white),
+                onPressed:(){showDoctorInfo(context);})]
             ),
             // The body of the page
             body: Center(
@@ -104,7 +127,9 @@ class _PatientsPageState extends State<PatientsPage>{
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                        Text('Welcome, Dr. ${widget.doctor}',style:TextStyle(color:Colors.white)),
+                        Container(
+                        padding: const EdgeInsets.all(8),
+                        child:Text('Welcome, Dr. ${doctorData["name"]}',style:TextStyle(fontSize: 30,color:Colors.indigo,fontWeight:FontWeight.bold))),
                         // To build a list of cards showing the patients' information
                         Expanded(
                             child: ListView.builder(

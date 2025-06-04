@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "/patients.dart";
+import "/signup.dart";
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -52,6 +53,8 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 final myController = TextEditingController();
 final myController2 = TextEditingController();
 
+// The variable for controlling whether the inputted password is obscured or not
+bool obscured=true;
 // Prepared for showing error messages
 String error_message="";
 
@@ -104,11 +107,20 @@ String error_message="";
               }
               return null;
             },),
-            TextFormField(decoration: const InputDecoration(
+            TextFormField(decoration: InputDecoration(
               labelText: 'Password',
               hintText: 'Enter your password',
               border: OutlineInputBorder(),
+              suffixIcon: IconButton(
+                icon: Icon(obscured ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    obscured = !obscured; // Toggle the obscured state
+                  });
+                },
+              ),
             ),
+            obscureText:obscured,
             controller: myController2,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -128,7 +140,7 @@ String error_message="";
               });
               // Send a POST request to the backend server
               // Change the <ip_address> to your server's IP address
-              // e.g. 192.168.144.240
+              // e.g. 192.168.38.240
               var response=await http.post(Uri.parse("http://<ip_address>:3001/login"),
               // Set the headers to specify the content type as JSON
               headers:{"Content-Type": "application/json"},
@@ -145,7 +157,7 @@ String error_message="";
                   myController.clear();
                   myController2.clear();
                 });
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PatientsPage(doctor: "${theData["doctor"]["name"]}",)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PatientsPage(doctor: "${theData["doctor"]["id"]}",)));
                 }
                 // If login is not successful, show an error message at the bottom
                 else{setState((){
@@ -158,7 +170,12 @@ String error_message="";
               style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.pink))
             ),
             // The widget for showing the error message
-            Text("${error_message}",style: TextStyle(fontSize: 25,color: Colors.red))
+            Text("${error_message}",style: TextStyle(fontSize: 25,color: Colors.red)),
+            ElevatedButton(child:const Text('Sign up',style: TextStyle(fontSize: 20,color:Colors.white)),
+              style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.indigo)),
+              onPressed:(){
+                Navigator.push(context, MaterialPageRoute(builder:(context)=>SignUp()));
+              })
           ]
         ))
       )

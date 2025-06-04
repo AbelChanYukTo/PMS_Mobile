@@ -21,7 +21,7 @@ class _PatientPageState extends State<PatientPage>{
     // Defining a method to fetch the patient's and doctor's data from the server
     void getPatientData() async{
         // Change the <ip_address> to your server's IP address
-        // e.g. 192.168.144.240
+        // e.g. 192.168.38.240
         var response=await http.get(Uri.parse("http://<ip_address>:3001/patient/${widget.patient}"),
         headers: {"Content-Type": "application/json"});
         if(response.statusCode==200){
@@ -40,6 +40,30 @@ class _PatientPageState extends State<PatientPage>{
         // So that the patient's data is updated every second
         Timer(const Duration(seconds:1),getPatientData);
     }
+
+    // Method to build a dialog for showing the doctor's information
+    Future<void> showDoctorInfo(BuildContext context) async{
+        return showDialog<void>(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: const Text("Doctor's Information",style:TextStyle(color:Colors.indigo)),
+                    content: Text("Name: ${doctorDetails["name"]}\nDepartment: ${doctorDetails["dept"]}\nID: ${doctorDetails["id"]}",
+                    style:TextStyle(color:Colors.indigo)),
+                    actions: <Widget>[
+                        // If the button "OK" is pressed, the dialog will be removed
+                        ElevatedButton(
+                            child: const Text("OK",style: TextStyle(color: Colors.white)),
+                            style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.indigo)),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            })
+                    ],
+                );
+            }
+        );
+    }
+
     // Called when the states are changed
     // To build the UI of the patient page
     Widget build(BuildContext context){
@@ -52,7 +76,9 @@ class _PatientPageState extends State<PatientPage>{
                 automaticallyImplyLeading: false,
                 // When the icon is pressed, it will return to the patients page
                 leading: IconButton(icon: const Icon(Icons.arrow_back),
-                onPressed: (){Navigator.of(context).pop();})
+                onPressed: (){Navigator.of(context).pop();}),
+                actions: <Widget>[IconButton(icon: Icon(Icons.account_circle,color:Colors.white),
+                onPressed:(){showDoctorInfo(context);})]
             ),
             // The body of the page
             // Its content is a list of widgets in a ListView object

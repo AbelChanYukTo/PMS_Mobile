@@ -25,8 +25,8 @@ app.post("/login", (req, res) => {
     async function run(){
     await clus.connect();
     const pms = clus.db("pms");
-    const doctor = pms.collection("doctor");
-    const result=await doctor.findOne({ username: username, password: password });
+    const account = pms.collection("account");
+    const result=await account.findOne({ username: username, password: password });
     // If exists, the response will include the corresponding doctor's information
     if (result){
         console.log("Login successful");
@@ -52,7 +52,7 @@ app.get("/patients/:doctor", (req, res) => {
         const patient = pms.collection("patient");
         const doct=pms.collection("doctor");
         const result=await patient.find({doctor:doctor});
-        const result2=await doct.findOne({name:doctor});
+        const result2=await doct.findOne({id:doctor});
         var theArr=[];
         for await (const doc of result){
             theArr.push(doc);
@@ -72,10 +72,63 @@ const pms=clus.db("pms");
 const patcol=pms.collection("patient");
 const doctor=pms.collection("doctor");
 const result=await patcol.findOne({name:patient});
-const result2=await doctor.findOne({name:result.doctor});
+const result2=await doctor.findOne({id:result.doctor});
 res.json({patient:result,doctor:result2});}
 run();
 });
-
+app.post("/signup",(req,res)=>{
+    var {doctor_id,full_name,department,username,password}=req.body;
+    async function run(){
+    await clus.connect();
+    const pms = clus.db("pms");
+    const doctor = pms.collection("doctor");
+    const account=pms.collection("account");
+    // check if the username already exists
+    const existingUser = await account.findOne({ username: username });
+    if (existingUser) {
+        console.log("Username already exists");
+        res.json({ success: false, message: "Username already exists" });
+        return;
+    }
+    // check if the doctor has already had an account
+    const existingAccount = await account.findOne({ id: doctor_id });
+    if (existingAccount) {
+        console.log("Doctor already has an account");
+        res.json({ success: false, message: "Doctor already has an account" });
+        return;
+    }
+    // check if the password is empty
+    if (!password || password.trim() === "") {
+        console.log("Password cannot be empty");
+        res.json({ success: false, message: "Password cannot be empty" });
+        return;
+    }
+    // check if the doctor's ID and name exists
+    const existingDoctor = await doctor.findOne({ id: doctor_id, name: full_name, dept: department });
+    console.log("Looking for doctor:", {
+    id: doctor_id,
+    name: full_name,
+    dept: department
+});
+    if (!existingDoctor){
+        console.log("Doctor not found");
+        res.json({ success: false, message: "Doctor not found" });
+        return;
+    }
+    // insert the new account into the account collection
+    const newAccount = {
+        username: username,
+        password: password,
+        id: doctor_id
+    };
+    await account.insertOne(newAccount);
+    console.log("Signup successful");
+    res.json({ success: true, username:username,password:password });
+    return;
+}
+run();}
+);
 // The server listens on the port 3001
-app.listen(3001,"192.168.144.240", () => { console.log("Server running") });
+// Change the <ip_address> to your computer's IP address
+// e.g. 192.168.144.240
+app.listen(3001,"192.168.38.240", () => { console.log("Server running") });
