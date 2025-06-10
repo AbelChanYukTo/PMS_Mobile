@@ -128,7 +128,7 @@ class _SignUpState extends State<SignUp>{
                         });
                         var response=await http.post(
                             // Change the <ip_address> to your server's IP address
-                            // e.g. 192.168.38.240
+                            // e.g. 192.168.118.240
                             Uri.parse("http://<ip_address>:3001/signup"),
                             headers:{"Content-Type": "application/json"},
                             body:data);

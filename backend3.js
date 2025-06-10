@@ -130,5 +130,5 @@ run();}
 );
 // The server listens on the port 3001
 // Change the <ip_address> to your computer's IP address
-// e.g. 192.168.144.240
-app.listen(3001,"192.168.38.240", () => { console.log("Server running") });
+// e.g. 192.168.118.240
+app.listen(3001,"<ip_address>", () => { console.log("Server running") });
