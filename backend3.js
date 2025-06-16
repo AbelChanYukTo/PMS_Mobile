@@ -129,6 +129,4 @@ app.post("/signup",(req,res)=>{
 run();}
 );
 // The server listens on the port 3001
-// Change the <ip_address> to your computer's IP address
-// e.g. 192.168.118.240
-app.listen(3001,"<ip_address>", () => { console.log("Server running") });
+app.listen(3001,"165.22.191.190", () => { console.log("Server running") });

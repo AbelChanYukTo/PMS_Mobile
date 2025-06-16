@@ -20,9 +20,7 @@ class _PatientPageState extends State<PatientPage>{
 
     // Defining a method to fetch the patient's and doctor's data from the server
     void getPatientData() async{
-        // Change the <ip_address> to your server's IP address
-        // e.g. 192.168.118.240
-        var response=await http.get(Uri.parse("http://<ip_address>:3001/patient/${widget.patient}"),
+        var response=await http.get(Uri.parse("http://165.22.191.190:3001/patient/${widget.patient}"),
         headers: {"Content-Type": "application/json"});
         if(response.statusCode==200){
             var theData=json.decode(response.body);

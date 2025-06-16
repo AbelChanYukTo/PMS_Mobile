@@ -139,9 +139,7 @@ String error_message="";
                 "password": myController2.text
               });
               // Send a POST request to the backend server
-              // Change the <ip_address> to your server's IP address
-              // e.g. 192.168.118.240
-              var response=await http.post(Uri.parse("http://<ip_address>:3001/login"),
+              var response=await http.post(Uri.parse("http://165.22.191.190:3001/login"),
               // Set the headers to specify the content type as JSON
               headers:{"Content-Type": "application/json"},
               // Send the pair of inputted username and password as the request's body

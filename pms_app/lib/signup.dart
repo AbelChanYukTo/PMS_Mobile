@@ -127,9 +127,7 @@ class _SignUpState extends State<SignUp>{
                             "password":passwordController.text
                         });
                         var response=await http.post(
-                            // Change the <ip_address> to your server's IP address
-                            // e.g. 192.168.118.240
-                            Uri.parse("http://<ip_address>:3001/signup"),
+                            Uri.parse("http://165.22.191.190:3001/signup"),
                             headers:{"Content-Type": "application/json"},
                             body:data);
                         // When a response is received, decode the response body
