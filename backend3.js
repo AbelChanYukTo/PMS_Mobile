@@ -12,7 +12,8 @@ app.use(express.json());
 // it will try to connect again automatically
 var clus;
 while (true){try{
-clus=new MongoClient("mongodb://localhost:27017");
+clus=new MongoClient("mongodb+srv://abelchanseefat1230:123456789To1@abelchanyukto.b26hf.mongodb.net/"
+        + "?retryWrites=true&w=majority&appName=AbelChanYukTo");
     break;}
 catch(err){}}
 console.log("MongoDB Connected");
