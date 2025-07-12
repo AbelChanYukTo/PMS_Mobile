@@ -46,6 +46,7 @@ run();
 // When it receives a request for getting the information of the patients which the specified doctor manages
 app.get("/patients/:doctor", (req, res) => {
     var doctor = req.params.doctor;
+    console.log("Received doctor request");
     // get the doctor's data and its patients' data
     async function run(){
         await clus.connect();
@@ -53,12 +54,16 @@ app.get("/patients/:doctor", (req, res) => {
         const patient = pms.collection("patient");
         const doct=pms.collection("doctor");
         const result=await patient.find({doctor:doctor});
+        console.log("Finding patients successful with doctor ID:"+doctor);
         const result2=await doct.findOne({id:doctor});
+        console.log("Finding doctor successful with ID: "+doctor);
         var theArr=[];
         for await (const doc of result){
             theArr.push(doc);
         }
+        console.log("Pushing completed");
         res.json({patients:theArr,doctor:result2});
+        console.log("Response sent");
     }
     run();
 });
