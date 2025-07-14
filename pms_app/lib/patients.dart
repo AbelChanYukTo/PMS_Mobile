@@ -30,6 +30,11 @@ class _PatientsPageState extends State<PatientsPage>{
     var patients=[];
     var doctorData={};
 
+    // The text of the header of the page
+    // It is initialized with "Loading..." before the data is received
+    // After the data is received, it will be updated with the actual data
+    var header="Loading...";
+    
     // Defining a method to fetch the patients' and doctor's data from the server
     void getPatientsData() async{
         var response=await http.get(Uri.parse("http://165.22.191.190:3001/patients/${widget.doctor}"),
@@ -40,6 +45,7 @@ class _PatientsPageState extends State<PatientsPage>{
             setState((){
                 patients=theData["patients"];
                 doctorData=theData["doctor"];
+                header='Welcome, Dr. ${doctorData["name"]}';
             });
     }}
 
@@ -127,7 +133,7 @@ class _PatientsPageState extends State<PatientsPage>{
                     children: <Widget>[
                         Container(
                         padding: const EdgeInsets.all(8),
-                        child:Text('Welcome, Dr. ${doctorData["name"]}',style:TextStyle(fontSize: 30,color:Colors.indigo,fontWeight:FontWeight.bold))),
+                        child:Text(header, style:TextStyle(fontSize: 30,color:Colors.indigo,fontWeight:FontWeight.bold))),
                         // To build a list of cards showing the patients' information
                         Expanded(
                             child: ListView.builder(
