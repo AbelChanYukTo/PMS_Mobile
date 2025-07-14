@@ -2,7 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const { MongoClient } = require("mongodb");
 const app = express()
-
+require("dotenv").config();
 // To allow CORS
 app.use(cors())
 app.use(express.json());
@@ -12,8 +12,7 @@ app.use(express.json());
 // it will try to connect again automatically
 var clus;
 while (true){try{
-clus=new MongoClient("mongodb+srv://abelchanseefat1230:123456789To1@abelchanyukto.b26hf.mongodb.net/"
-        + "?retryWrites=true&w=majority&appName=AbelChanYukTo");
+clus=new MongoClient(process.env.mongodb_url);
     break;}
 catch(err){}}
 console.log("MongoDB Connected");
