@@ -44,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 // Define the State class for the MyHomePage widget
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
 
 // The GlobalKey to build a form and to uniquely identify it
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -53,10 +53,18 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 final myController = TextEditingController();
 final myController2 = TextEditingController();
 
+// The controller for the circular progress indicator
+late AnimationController ancontroller= AnimationController(
+  duration: const Duration(seconds: 2),
+  vsync: this,
+)..repeat(reverse:false);
+
 // The variable for controlling whether the inputted password is obscured or not
 bool obscured=true;
 // Prepared for showing error messages
-String error_message="";
+//String error_message="";
+// The variable for controlling whether the button is disabled or not
+var buttonDisabled=false;
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +137,14 @@ String error_message="";
               return null;
             },),
             // Button to submit the form for login
-            ElevatedButton(
+            buttonDisabled? CircularProgressIndicator(value:ancontroller.value,color:Colors.pink)
+              :ElevatedButton(
               // Define the function to be called when the button is pressed
-              onPressed: () async{
+              onPressed: buttonDisabled? null: () async{
+              // Make the Confirm button disabled and change its text to "Waiting..."
+              setState((){
+                buttonDisabled=true;
+              });
               // Get the data from the text boxes
               // Store it in a JSON format
               var data = json.encode({
@@ -151,24 +164,29 @@ String error_message="";
               // And clear the text boxes
                 if(theData["success"]==true){
                   setState((){
-                  error_message="";
+                  //error_message="";
                   myController.clear();
                   myController2.clear();
+                  buttonDisabled=false; // Re-enable the button
                 });
                   Navigator.push(context, MaterialPageRoute(builder: (context) => PatientsPage(doctor: "${theData["doctor"]["id"]}",)));
                 }
                 // If login is not successful, show an error message at the bottom
                 else{setState((){
-                  error_message="Username or password incorrect";
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Username or password incorrect"),
+                    action:SnackBarAction(label:"OK", onPressed: (){})));
+                  //error_message="Username or password incorrect";
+                  buttonDisabled=false; // Re-enable the button
                 });
                 }
             },
             // Set the text shown on the button
-              child: const Text('Login',style: TextStyle(fontSize: 20,color:Colors.white)),
+              child: Text('Login',style: TextStyle(fontSize: 20,color:Colors.white)),
               style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.pink))
             ),
             // The widget for showing the error message
-            Text("${error_message}",style: TextStyle(fontSize: 25,color: Colors.red)),
+            //Text("${error_message}",style: TextStyle(fontSize: 25,color: Colors.red)),
             ElevatedButton(child:const Text('Sign up',style: TextStyle(fontSize: 20,color:Colors.white)),
               style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.indigo)),
               onPressed:(){

@@ -7,9 +7,15 @@ class SignUp extends StatefulWidget{
     const SignUp({super.key});
     State<SignUp> createState()=> _SignUpState();
 }
-class _SignUpState extends State<SignUp>{
+class _SignUpState extends State<SignUp> with TickerProviderStateMixin{
     // The variable for showing error messages
-    var error_message="";
+    //var error_message="";
+    var buttonDisabled=false;
+
+    late AnimationController ancontroller=AnimationController(
+        duration: const Duration(seconds:2),
+        vsync:this
+    )..repeat(reverse:false);
 
     // The controllers for getting and changing the text in the text fields
     final doctorIdController=TextEditingController();
@@ -116,7 +122,14 @@ class _SignUpState extends State<SignUp>{
                             obscureText: obscured,
                             controller: passwordController),
                         // The submit button to confirm the sign up
-                    ElevatedButton(onPressed:() async{
+                    buttonDisabled? CircularProgressIndicator(value:ancontroller.value,color:Colors.pink)
+                    :ElevatedButton(
+                        onPressed:buttonDisabled? null :() async{
+                        // Make the Confirm button disabled and change its text to "Waiting..."
+                            // Enter codes here
+                        setState(() {
+                            buttonDisabled=true;
+                        });
                         // Put the inputs into a JSON object
                         // and preparing to send it to the server as a request body
                         var data=json.encode({
@@ -136,7 +149,7 @@ class _SignUpState extends State<SignUp>{
                         if(theData["success"]==true){
                         // To ensure that the error message is cleared
                         setState((){
-                            error_message="";
+                            //error_message="";
                         });
                         // Clear the text fields for security
                         doctorIdController.clear();
@@ -144,6 +157,11 @@ class _SignUpState extends State<SignUp>{
                         departmentController.clear();
                         usernameController.clear();
                         passwordController.clear();
+                        // Restore the normal state of the Confirm button
+                            // Enter codes here
+                        setState(() {
+                            buttonDisabled=false;
+                        });
                         // Navigate to the page indicating that the sign up is successful
                         // and that page will show the username of the new account
                             Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpSuccess(username: theData["username"])));
@@ -151,20 +169,31 @@ class _SignUpState extends State<SignUp>{
                         // If the sign up is not successful, show the corresponding error message
                         else{
                             setState((){
-                                error_message="${theData["message"]}\nPlease try again.";
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text("${theData["message"]}\nPlease try again."),
+                                    action:SnackBarAction(label:"OK", onPressed: (){})));
+                                //error_message="${theData["message"]}\nPlease try again.";
+                                buttonDisabled=false;
                             });
+                            // Clear the text fields for security
+                            doctorIdController.clear();
+                            fullNameController.clear();
+                            departmentController.clear();
+                            usernameController.clear();
+                            passwordController.clear();
                         }
                     },
                     // Set the button's text to be white and the background color to pink
-                    child: const Text("Confirm",
+                    child: Text("Confirm",
                     style: TextStyle(fontSize: 16,color:Colors.white)),
-                    style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.pink)))
+                    style: ButtonStyle(backgroundColor:WidgetStatePropertyAll<Color>(Colors.pink),
+                    ))
                     ]
                     )),
                     // A container of text to show the error message
-                    Container(padding: const EdgeInsets.all(8),
+                    /*Container(padding: const EdgeInsets.all(8),
                     child:Text("${error_message}",
-                    style: TextStyle(fontSize: 16, color:Colors.red)))
+                    style: TextStyle(fontSize: 16, color:Colors.red)))*/
                     ]
         )
       )
