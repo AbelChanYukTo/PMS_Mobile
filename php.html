@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <title>Simulated Sensor Nodes for Different Beds</title>
+</head>
+
+<body>
+    <h1>Simulated Sensor Nodes for Different Beds</h1>
+    <!-- A table in which each cell represents a bed -->
+    <!-- Each cell has a form which has some buttons representing sensor nodes -->
+    <!-- After the buttons are clicked, their corresponding form will produce a post request -->
+    <!-- Then this file's php codes will be executed once -->
+    <table>
+        <tr>
+            <td>
+                <form>Bed Number 1230008012<br>
+                    Patient Name: Bble<br>
+                    <input type="submit" name="1230008012" id="1" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="1230008012" id="2" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="1230008012blood" value="100"><br>
+                    Heartbeat Rate:<input type="text" id="1230008012heart" value="79"><br>
+                    <input type="submit" name="1230008012" id="send" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+            <td>
+                <form>Bed Number 32117456<br>
+                    Patient Name: Cble<br>
+                    <input type="submit" name="32117456" id="3" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="32117456" id="4" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="32117456blood" value="110"><br>
+                    Heartbeat Rate:<input type="text" id="32117456heart" value="85"><br>
+                    <input type="submit" name="32117456" id="send2" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+            <td>
+                <form>Bed Number 449988117<br>
+                    Patient Name: Deeble<br>
+                    <input type="submit" name="449988117" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="449988117" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="449988117blood" value="110"><br>
+                    Heartbeat Rate:<input type="text" id="449988117heart" value="85"><br>
+                    <input type="submit" name="449988117" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+            <td>
+                <form>Bed Number 527492690<br>
+                    Patient Name: Eeble<br>
+                    <input type="submit" name="527492690" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="527492690" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="527492690blood" value="110"><br>
+                    Heartbeat Rate:<input type="text" id="527492690heart" value="85"><br>
+                    <input type="submit" name="527492690" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form>Bed Number 863296490<br>
+                    Patient Name: Fble<br>
+                    <input type="submit" name="863296490" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="863296490" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="863296490blood" value="120"><br>
+                    Heartbeat Rate:<input type="text" id="863296490heart" value="80"><br>
+                    <input type="submit" name="863296490" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+            <td>
+                <form>Bed Number 368492408<br>
+                    Patient Name: Geeble<br>
+                    <input type="submit" name="368492408" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="368492408" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="368492408blood" value="120"><br>
+                    Heartbeat Rate:<input type="text" id="368492408heart" value="84"><br>
+                    <input type="submit" name="368492408" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+            <td>
+                <form>Bed Number 464275048<br>
+                    Patient Name: Global<br>
+                    <input type="submit" name="464275048" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="464275048" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="464275048blood" value="116"><br>
+                    Heartbeat Rate:<input type="text" id="464275048heart" value="87"><br>
+                    <input type="submit" name="464275048" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+            <td>
+                <form>Bed Number 629473969<br>
+                    Patient Name: Heeble<br>
+                    <input type="submit" name="629473969" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="629473969" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="629473969blood" value="120"><br>
+                    Heartbeat Rate:<input type="text" id="629473969heart" value="80"><br>
+                    <input type="submit" name="629473969" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form>Bed Number 763956497<br>
+                    Patient Name: Echable<br>
+                    <input type="submit" name="763956497" value="fallen from bed" onclick="act(this)"><br>
+                    <input type="submit" name="763956497" value="safe" onclick="act(this)"><br>
+                    Blood Pressure:<input type="text" id="763956497blood" value="121"><br>
+                    Heartbeat Rate:<input type="text" id="763956497heart" value="85"><br>
+                    <input type="submit" name="763956497" value="Send vital sign" onclick="act(this)">
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+<script>
+    function act(id){
+        var socket=new WebSocket("ws://165.22.191.190:5501");
+        socket.addEventListener("open", (event) => {
+            if (id.value=="fallen from bed"){
+            socket.send(id.name+"\t0000008012\t2024000012\t"+new Date()+"\tBedside fall signal detected\n");}
+            if (id.value=="safe"){
+                socket.send(id.name+"\t0000008012\t2024000012\t"+new Date()+"\tSafe\n");
+            }
+            if (id.value=="Send vital sign"){
+                var blood=document.getElementById(id.name+"blood");
+                var pulse=document.getElementById(id.name+"heart");
+                socket.send(id.name+"\t0000008816\t2024000012\t"+new Date()+"\tblood_pressure:"+blood.value+"heartbeat_rate:"+pulse.value+"\n")
+            }
+        });
+    }
+</script>
+</html>

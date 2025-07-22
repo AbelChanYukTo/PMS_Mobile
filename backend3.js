@@ -134,4 +134,4 @@ app.post("/signup",(req,res)=>{
 run();}
 );
 // The server listens on the port 3001
-app.listen(3001,"0.0.0.0", () => { console.log("Server running") });
+app.listen(3001,"165.22.191.190", () => { console.log("Server running") });
