@@ -7,8 +7,8 @@ http.createServer((req,res)=>{
         res.writeHead(200,{"Content-Type":"text/html; charset=utf-8"});
         res.write(data);
         res.end();});
-}).listen(5500,"165.22.191.190");
-var wss=new ws.Server({port:5501,host:"165.22.191.190"});
+}).listen(5500,"0.0.0.0");
+var wss=new ws.Server({port:5501,host:"0.0.0.0"});
 wss.on("connection",function (cli){
     cli.on("message",function (data){
         fs.appendFile("database.txt",data,(err)=>{
