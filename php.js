@@ -8,8 +8,8 @@ http.createServer((req,res)=>{console.log("Received Request");
         res.write(data);
         res.end();
     console.log("Response Sent");});
-}).listen(5500,"165.22.191.190");
-var wss=new ws.Server({port:5501,host:"165.22.191.190"});
+}).listen(5500,"localhost");
+var wss=new ws.Server({port:5501,host:"localhost"});
 wss.on("connection",function (cli){console.log("WebSocket Connection Established");
     cli.on("message",function (data){
         fs.appendFile("database.txt",data,(err)=>{

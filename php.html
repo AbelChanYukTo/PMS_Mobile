@@ -119,7 +119,7 @@
 </body>
 <script>
     function act(id){
-        var socket=new WebSocket("ws://165.22.191.190:5501");
+        var socket=new WebSocket("ws://localhost:5501");
         socket.addEventListener("open", (event) => {
             if (id.value=="fallen from bed"){
             socket.send(id.name+"\t0000008012\t2024000012\t"+new Date()+"\tBedside fall signal detected\n");}
