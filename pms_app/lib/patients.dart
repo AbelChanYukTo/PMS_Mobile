@@ -35,6 +35,7 @@ class _PatientsPageState extends State<PatientsPage>{
     // After the data is received, it will be updated with the actual data
     var header="Loading...";
     
+    late Timer _timer;
     // Defining a method to fetch the patients' and doctor's data from the server
     void getPatientsData() async{
         var response=await http.get(Uri.parse("http://165.22.191.190:3001/patients/${widget.doctor}"),
@@ -54,7 +55,13 @@ class _PatientsPageState extends State<PatientsPage>{
         super.initState();
         // Set the getPatientsData() method to be called every second
         // So that the patients' data is updated every second
-        Timer(const Duration(seconds:1),getPatientsData);
+        _timer=Timer.periodic(const Duration(seconds:1),(timer){
+            getPatientsData();});
+    }
+    // Called when this widget is removed from the widget tree
+    void dispose(){
+        _timer.cancel();
+        super.dispose();
     }
 
     // Method to show a dialog for logging out
