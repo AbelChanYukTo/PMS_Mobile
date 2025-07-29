@@ -122,7 +122,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin{
                             obscureText: obscured,
                             controller: passwordController),
                         // The submit button to confirm the sign up
-                    buttonDisabled? CircularProgressIndicator(value:ancontroller.value,color:Colors.pink)
+                    buttonDisabled? CircularProgressIndicator(color:Colors.pink)
                     :ElevatedButton(
                         onPressed:buttonDisabled? null :() async{
                         // Make the Confirm button disabled and change its text to "Waiting..."
